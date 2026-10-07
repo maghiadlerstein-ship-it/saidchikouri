@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#f9f6f0">
+<meta name="description" content="A love letter for Said — from Maria.">
+<meta name="color-scheme" content="light">
 <title>For Said · From Maria</title>
 <style>
   *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
@@ -14,18 +16,25 @@
     --serif:'Georgia','Times New Roman',serif;
     --sans:'Segoe UI','Helvetica Neue',system-ui,-apple-system,sans-serif;
   }
-  html{font-size:16px;-webkit-text-size-adjust:100%}
+  html{font-size:16px;-webkit-text-size-adjust:100%;text-size-adjust:100%}
   body{
     font-family:var(--sans);background:var(--cream);color:var(--text);
-    min-height:100dvh;overflow:hidden;position:relative;
-    -webkit-tap-highlight-color:transparent;-webkit-font-smoothing:antialiased;
+    min-height:100dvh;min-height:100vh;
+    overflow:hidden;position:relative;
+    -webkit-tap-highlight-color:transparent;
+    -webkit-font-smoothing:antialiased;
+    overscroll-behavior:none;
+  }
+  /* Fallback for older browsers that don't understand dvh */
+  @supports (min-height: 100dvh) {
+    body { min-height: 100dvh; }
   }
 
   /* ---------- SCENES ---------- */
   .scene{
-    position:fixed;inset:0;display:flex;flex-direction:column;
-    align-items:center;justify-content:center;
-    padding:calc(24px + env(safe-area-inset-top)) 22px calc(24px + env(safe-area-inset-bottom)) 22px;
+    position:fixed;inset:0;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:calc(24px + env(safe-area-inset-top, 0px)) 22px calc(24px + env(safe-area-inset-bottom, 0px)) 22px;
     opacity:0;visibility:hidden;
     transition:opacity .7s ease,visibility .7s ease;
     z-index:1;overflow:hidden;
@@ -65,6 +74,9 @@
     transition:transform .2s cubic-bezier(.4,0,.2,1),box-shadow .25s,opacity .2s;
     position:relative;pointer-events:auto !important;z-index:100;
     -webkit-appearance:none;appearance:none;
+    text-decoration:none;
+    color:inherit;
+    line-height:1;
   }
   .btn:active{transform:scale(.96)}
   .btn-primary{
@@ -75,14 +87,15 @@
   .btn-ghost{
     background:transparent;color:var(--text-soft);
     border:1.5px solid var(--beige);font-size:.95rem;
-    min-width:auto;padding:12px 28px;min-height:48px;
+    min-width:auto;padding:12px 28px;min-height:52px;
   }
 
-  /* ---------- MESSAGE (now includes link) ---------- */
+  /* ---------- MESSAGE ---------- */
   #scene-message .message-content{
     display:flex;flex-direction:column;align-items:center;
     gap:26px;max-width:520px;text-align:center;
-    animation:messageFadeIn .9s cubic-bezier(.4,0,.2,1) both
+    animation:messageFadeIn .9s cubic-bezier(.4,0,.2,1) both;
+    padding:0 4px;
   }
   @keyframes messageFadeIn{
     from{opacity:0;transform:translateY(18px)}
@@ -93,7 +106,7 @@
   .message-reveal{font-size:clamp(1rem,4vw,1.25rem);color:var(--text-soft);
     line-height:1.7;min-height:2.6em;letter-spacing:.02em}
 
-  /* Song link — big, tappable, elegant */
+  /* ---------- SONG LINK ---------- */
   .song-link{
     display:inline-flex;align-items:center;gap:10px;
     margin-top:4px;
@@ -112,12 +125,14 @@
     touch-action:manipulation;
     min-height:52px;
     -webkit-appearance:none;appearance:none;
+    cursor:pointer;
+    position:relative;
+    z-index:110;
   }
   .song-link:active{transform:scale(.96)}
   .song-link-icon{font-size:1.2rem}
   .song-link-arrow{font-size:.9em;opacity:.6;margin-left:2px}
 
-  /* Small caption under link */
   .song-caption{
     font-family:var(--serif);font-style:italic;
     font-size:clamp(.8rem,3vw,.9rem);
@@ -135,6 +150,7 @@
     perspective:900px;cursor:pointer;
     -webkit-tap-highlight-color:transparent;
     transition:transform .4s ease;
+    touch-action:manipulation;
   }
   .envelope-wrapper:active{transform:scale(.98)}
   .envelope{position:relative;width:100%;height:100%;
@@ -184,6 +200,7 @@
     width:100%;overflow-y:auto;-webkit-overflow-scrolling:touch;
     max-height:68dvh;position:relative;
     border:1px solid rgba(200,180,140,.15);
+    overscroll-behavior:contain;
   }
   .letter-paper::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;
     background:linear-gradient(90deg,var(--sage),var(--gold-light),var(--sage));
@@ -234,9 +251,30 @@
     100%{transform:translateY(-130vh) translateX(-16px) rotate(-4deg);opacity:0}
   }
 
+  /* ---------- RESPONSIVE ---------- */
   @media (min-width:600px){.letter-paper{padding:40px 36px}}
   @media (min-width:900px){.scene{padding:40px}}
 
+  /* ---------- SMALL PHONES ---------- */
+  @media (max-width:360px){
+    .btn{min-width:180px;padding:16px 28px;font-size:.98rem}
+    .song-link{padding:12px 20px;font-size:.92rem}
+    .title-large{font-size:1.55rem}
+    .message-main{font-size:1.7rem}
+  }
+
+  /* ---------- LANDSCAPE PHONES ---------- */
+  @media (max-height:500px) and (orientation:landscape){
+    .intro-heart{font-size:2rem}
+    .title-large{font-size:1.3rem}
+    .subtitle{font-size:.85rem}
+    .btn{min-height:48px;padding:12px 24px;min-width:180px}
+    .message-main{font-size:1.5rem}
+    .letter-paper{max-height:60dvh;padding:20px 18px}
+    .envelope-wrapper{width:min(220px,50vw)}
+  }
+
+  /* ---------- REDUCED MOTION ---------- */
   @media (prefers-reduced-motion:reduce){
     *,*::before,*::after{
       animation-duration:.01ms !important;animation-iteration-count:1 !important;
@@ -246,6 +284,7 @@
     .intro-heart{animation:none !important}
   }
 
+  /* ---------- SCROLLBAR ---------- */
   .letter-paper::-webkit-scrollbar{width:3px}
   .letter-paper::-webkit-scrollbar-track{background:transparent}
   .letter-paper::-webkit-scrollbar-thumb{background:var(--beige);border-radius:3px}
@@ -271,16 +310,15 @@
     <div class="message-main">I miss you…</div>
     <div class="message-reveal" id="message-reveal"></div>
 
-    <!-- Song link appears WITH the message -->
     <a class="song-link"
        id="song-link"
        href="https://youtu.be/2aIjPlTL1gA?si=1AyMr-Rx_7N1OPp8"
        target="_blank"
        rel="noopener noreferrer"
-       aria-label="Play our song on YouTube">
-      <span class="song-link-icon">🎵</span>
+       aria-label="Play our song on YouTube (opens in a new tab)">
+      <span class="song-link-icon" aria-hidden="true">🎵</span>
       <span>Play our song</span>
-      <span class="song-link-arrow">↗</span>
+      <span class="song-link-arrow" aria-hidden="true">↗</span>
     </a>
     <p class="song-caption">opens on YouTube</p>
   </div>
@@ -295,7 +333,7 @@
         <div class="envelope-flap" id="envelope-flap"></div>
         <div class="envelope-body">
           <div class="envelope-letter" id="envelope-letter">
-            <span style="font-size:1.6rem;color:var(--gold)">💌</span>
+            <span style="font-size:1.6rem;color:var(--gold)" aria-hidden="true">💌</span>
           </div>
         </div>
         <div class="envelope-seal" id="envelope-seal">M&amp;S</div>
@@ -346,7 +384,7 @@
 
   function $(id){ return document.getElementById(id); }
 
-  // DOM
+  // DOM (all resolved after the elements above exist)
   var scenes = {
     INTRO:    $('scene-intro'),
     MESSAGE:  $('scene-message'),
@@ -358,12 +396,14 @@
   var btnOpenLetter  = $('btn-open-letter');
   var btnContinue    = $('btn-continue');
   var messageReveal  = $('message-reveal');
+  var envelopeWrap   = $('envelope-wrapper');
   var envelopeFlap   = $('envelope-flap');
   var envelopeLetter = $('envelope-letter');
   var envelopeSeal   = $('envelope-seal');
   var endingMessage  = $('ending-message');
   var endingSub      = $('ending-sub');
   var endingNames    = $('ending-names');
+  var songLink       = $('song-link');
 
   // State
   var currentScene = 'INTRO';
@@ -384,10 +424,18 @@
   }
 
   function prefersReducedMotion() {
-    return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    try {
+      return window.matchMedia &&
+             window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    } catch (e) { return false; }
   }
 
-  // Bulletproof tap handler — click AND touchend, debounced
+  /**
+   * Bulletproof tap handler.
+   * - Listens to both 'click' and 'touchend'.
+   * - Debounces duplicates (browser often fires both on mobile).
+   * - Skips 'touchend' if the tap moved (so scrolling doesn't trigger it).
+   */
   function onTap(el, handler) {
     if (!el) { console.warn('onTap: element missing'); return; }
     var last = 0;
@@ -400,10 +448,18 @@
     }
     el.addEventListener('click', fire, false);
     el.addEventListener('touchend', function (e) {
-      // Only prevent default if this is not a link we want to open
-      e.preventDefault();
+      // If the user moved more than 10px, treat as a scroll, not a tap.
+      var t = e.changedTouches && e.changedTouches[0];
+      if (t && el._startY !== undefined && Math.abs(t.clientY - el._startY) > 10) {
+        return;
+      }
+      if (e.cancelable) e.preventDefault();
       fire(e);
     }, { passive: false });
+    el.addEventListener('touchstart', function (e) {
+      var t = e.touches && e.touches[0];
+      if (t) el._startY = t.clientY;
+    }, { passive: true });
   }
 
   // ---------- SCENE SWITCHER ----------
@@ -445,7 +501,7 @@
         messageReveal.textContent = full.slice(0, ++i);
       }, 55);
     }, 500);
-    // Auto-advance to envelope after the message has settled
+    // Auto-advance to envelope after the message has had time to be read
     later(function () { goToScene('ENVELOPE'); }, 6000);
   }
 
@@ -526,34 +582,32 @@
   }
 
   // ============================================================
-  //  WIRE UP EVERYTHING — the key fix
+  //  WIRING — one tap does everything
   // ============================================================
 
-  // 1) Open it ❤️  — ONE tap triggers EVERYTHING
+  // Open it ❤️  → straight to MESSAGE scene (message + song link appear together)
   onTap(btnOpen, function () {
-    // Immediately go to the message scene (message + song link appear together)
     goToScene('MESSAGE');
   });
 
-  // 2) Open my letter 💌
+  // Open my letter 💌
   onTap(btnOpenLetter, function () {
     openEnvelope();
   });
 
-  // 3) Envelope itself is tappable too
-  onTap($('envelope-wrapper'), function () {
+  // Envelope itself
+  onTap(envelopeWrap, function () {
     openEnvelope();
   });
 
-  // 4) Continue → ending
+  // Continue → ending
   onTap(btnContinue, function () {
     goToScene('ENDING');
   });
 
-  // 5) Keyboard support for envelope
-  var envWrap = $('envelope-wrapper');
-  if (envWrap) {
-    envWrap.addEventListener('keydown', function (e) {
+  // Keyboard support for envelope (accessibility)
+  if (envelopeWrap) {
+    envelopeWrap.addEventListener('keydown', function (e) {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
         openEnvelope();
@@ -561,36 +615,32 @@
     });
   }
 
-  // ---------- SONG LINK — make sure it opens in a new tab on every platform ----------
-  var songLink = $('song-link');
+  // ---------- SONG LINK safety net ----------
+  // The anchor already works via target="_blank". This listener only
+  // exists to guarantee the link works even if something odd happens
+  // with the anchor's default behaviour on a specific mobile browser.
   if (songLink) {
-    // Some mobile browsers need explicit handling.
-    // We add a fallback that uses window.open if the anchor navigation is blocked.
     songLink.addEventListener('click', function (e) {
-      // Let the anchor's default behavior (target="_blank") work normally.
-      // This listener exists only as a safety net.
       try {
-        // If the anchor somehow has no href, bail with a manual open
         var href = songLink.getAttribute('href');
-        if (!href) {
+        if (!href || href === '#') {
           e.preventDefault();
-          window.open('https://youtu.be/2aIjPlTL1gA?si=1AyMr-Rx_7N1OPp8', '_blank', 'noopener');
+          window.open(
+            'https://youtu.be/2aIjPlTL1gA?si=1AyMr-Rx_7N1OPp8',
+            '_blank',
+            'noopener,noreferrer'
+          );
         }
       } catch (err) { console.warn('[song-link]', err); }
     }, false);
   }
 
-  // ---------- PREVENT BODY SCROLL ISSUES ----------
+  // ---------- Prevent body scroll except inside letter ----------
   document.addEventListener('touchmove', function (e) {
-    // Allow scroll only inside the letter paper
-    if (e.target.closest && e.target.closest('.letter-paper')) return;
+    var target = e.target;
+    if (target && target.closest && target.closest('.letter-paper')) return;
     if (e.touches && e.touches.length > 1) return; // pinch zoom
-    // Block vertical scroll on the body itself
-    var scene = e.target.closest && e.target.closest('.scene');
-    if (scene && !e.target.closest('.letter-paper')) {
-      // Let taps happen, but no scroll
-      if (e.cancelable) e.preventDefault();
-    }
+    if (e.cancelable) e.preventDefault();
   }, { passive: false });
 
 })();

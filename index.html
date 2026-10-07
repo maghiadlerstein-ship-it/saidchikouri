@@ -4,19 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#f9f6f0">
-<title>For Said Chikouri · From Maria Lyahoudia</title>
+<title>For Said · From Maria</title>
 <style>
   *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
   :root{
     --sage:#b8c4b8;--sage-deep:#93a493;--cream:#f9f6f0;--warm-white:#fdfbf7;
     --beige:#e8e0d5;--gold:#c9b38b;--gold-light:#e3d5b8;
     --text:#4a4a3f;--text-soft:#6b6b5c;
-    --font-serif:'Georgia','Times New Roman',serif;
-    --font-sans:'Segoe UI','Helvetica Neue',system-ui,-apple-system,sans-serif;
+    --serif:'Georgia','Times New Roman',serif;
+    --sans:'Segoe UI','Helvetica Neue',system-ui,-apple-system,sans-serif;
   }
   html{font-size:16px;-webkit-text-size-adjust:100%}
   body{
-    font-family:var(--font-sans);background:var(--cream);color:var(--text);
+    font-family:var(--sans);background:var(--cream);color:var(--text);
     min-height:100dvh;overflow:hidden;position:relative;
     -webkit-tap-highlight-color:transparent;-webkit-font-smoothing:antialiased;
   }
@@ -25,43 +25,48 @@
   .scene{
     position:fixed;inset:0;display:flex;flex-direction:column;
     align-items:center;justify-content:center;
-    padding:calc(24px + env(safe-area-inset-top)) 20px calc(24px + env(safe-area-inset-bottom)) 20px;
+    padding:calc(24px + env(safe-area-inset-top)) 22px calc(24px + env(safe-area-inset-bottom)) 22px;
     opacity:0;visibility:hidden;
-    transition:opacity .8s cubic-bezier(.4,0,.2,1),visibility .8s;
+    transition:opacity .7s ease,visibility .7s ease;
     z-index:1;overflow:hidden;
   }
   .scene.active{opacity:1;visibility:visible;z-index:10}
 
-  /* ---------- TYPE ---------- */
-  .title-large{font-family:var(--font-serif);font-size:clamp(1.7rem,6.8vw,2.6rem);
-    font-weight:400;color:var(--text);letter-spacing:-.01em;line-height:1.3;text-align:center}
-  .title-soft{font-family:var(--font-serif);font-size:clamp(1.3rem,5vw,1.9rem);
-    font-weight:400;color:var(--text-soft);text-align:center;line-height:1.5}
+  /* ---------- INTRO ---------- */
+  #scene-intro .intro-content{
+    display:flex;flex-direction:column;align-items:center;
+    gap:22px;text-align:center;position:relative;z-index:20
+  }
+  .intro-heart{font-size:3rem;animation:pulseHeart 2.4s ease-in-out infinite;
+    filter:drop-shadow(0 4px 12px rgba(200,160,150,.3))}
+  @keyframes pulseHeart{
+    0%,100%{transform:scale(1)}15%{transform:scale(1.12)}
+    30%{transform:scale(1)}45%{transform:scale(1.08)}
+  }
+  .title-large{font-family:var(--serif);font-size:clamp(1.7rem,6.8vw,2.5rem);
+    font-weight:400;color:var(--text);line-height:1.35}
   .subtitle{font-size:clamp(.95rem,3.5vw,1.1rem);color:var(--text-soft);
-    text-align:center;line-height:1.6;letter-spacing:.02em}
-  .intro-signature{font-family:var(--font-serif);font-style:italic;
+    line-height:1.65;letter-spacing:.02em}
+  .intro-signature{font-family:var(--serif);font-style:italic;
     font-size:clamp(.85rem,3.2vw,.98rem);color:var(--text-soft);
-    letter-spacing:.05em;opacity:.85;text-align:center}
+    letter-spacing:.05em;opacity:.9}
   .intro-signature .name{color:var(--sage-deep);font-style:normal;
     letter-spacing:.08em;font-weight:500}
+  .intro-line{width:60px;height:1px;background:var(--gold-light)}
 
   /* ---------- BUTTONS ---------- */
   .btn{
-    font-family:var(--font-sans);font-size:clamp(1rem,4vw,1.12rem);font-weight:500;
+    font-family:var(--sans);font-size:clamp(1rem,4vw,1.12rem);font-weight:500;
     letter-spacing:.04em;padding:18px 40px;border:none;border-radius:60px;
     cursor:pointer;min-height:60px;min-width:220px;
     display:inline-flex;align-items:center;justify-content:center;gap:8px;
     -webkit-user-select:none;user-select:none;
     touch-action:manipulation;
     transition:transform .2s cubic-bezier(.4,0,.2,1),box-shadow .25s,opacity .2s;
-    position:relative;
-    pointer-events:auto !important;
-    z-index:50;
-    -webkit-appearance:none;
-    appearance:none;
+    position:relative;pointer-events:auto !important;z-index:100;
+    -webkit-appearance:none;appearance:none;
   }
   .btn:active{transform:scale(.96)}
-  .btn[disabled]{opacity:.6;cursor:default;transform:none}
   .btn-primary{
     background:linear-gradient(145deg,var(--sage),var(--sage-deep));
     color:var(--warm-white);
@@ -73,35 +78,26 @@
     min-width:auto;padding:12px 28px;min-height:48px;
   }
 
-  /* ---------- INTRO ---------- */
-  #scene-intro .intro-content{display:flex;flex-direction:column;
-    align-items:center;gap:22px;text-align:center;position:relative;z-index:20}
-  .intro-heart{font-size:3rem;animation:pulseHeart 2.4s ease-in-out infinite;
-    filter:drop-shadow(0 4px 12px rgba(200,160,150,.3))}
-  @keyframes pulseHeart{
-    0%,100%{transform:scale(1)}15%{transform:scale(1.12)}
-    30%{transform:scale(1)}45%{transform:scale(1.08)}
-  }
-  .intro-line{width:60px;height:1px;background:var(--gold-light);margin:2px auto}
-
   /* ---------- MESSAGE ---------- */
-  #scene-message .message-content{display:flex;flex-direction:column;
-    align-items:center;gap:22px;max-width:520px;text-align:center}
-  .message-main{font-family:var(--font-serif);font-size:clamp(1.9rem,7.5vw,2.8rem);
+  #scene-message .message-content{
+    display:flex;flex-direction:column;align-items:center;
+    gap:24px;max-width:520px;text-align:center
+  }
+  .message-main{font-family:var(--serif);font-size:clamp(2rem,8vw,2.9rem);
     color:var(--text);line-height:1.3}
   .message-reveal{font-size:clamp(1rem,4vw,1.25rem);color:var(--text-soft);
     line-height:1.7;min-height:2.6em;letter-spacing:.02em}
-  .cursor-blink{display:inline-block;width:2px;height:1.05em;
-    background:var(--gold);margin-left:2px;vertical-align:text-bottom;
-    animation:blink .9s step-end infinite}
-  @keyframes blink{50%{opacity:0}}
 
   /* ---------- ENVELOPE ---------- */
-  #scene-envelope .envelope-content{display:flex;flex-direction:column;
-    align-items:center;gap:30px}
+  #scene-envelope .envelope-content{
+    display:flex;flex-direction:column;align-items:center;gap:30px
+  }
+  .title-soft{font-family:var(--serif);font-size:clamp(1.3rem,5vw,1.85rem);
+    font-weight:400;color:var(--text-soft);text-align:center;line-height:1.5}
   .envelope-wrapper{
-    position:relative;width:min(280px,70vw);aspect-ratio:1.5/1;
-    perspective:900px;cursor:pointer;-webkit-tap-highlight-color:transparent;
+    position:relative;width:min(280px,72vw);aspect-ratio:1.5/1;
+    perspective:900px;cursor:pointer;
+    -webkit-tap-highlight-color:transparent;
     transition:transform .4s ease;
   }
   .envelope-wrapper:active{transform:scale(.98)}
@@ -134,7 +130,7 @@
     width:44px;height:44px;
     background:radial-gradient(circle,#d4c5a8,var(--gold));border-radius:50%;z-index:5;
     display:flex;align-items:center;justify-content:center;
-    font-size:.7rem;font-family:var(--font-serif);font-weight:600;
+    font-size:.7rem;font-family:var(--serif);font-weight:600;
     letter-spacing:.02em;color:var(--warm-white);
     box-shadow:0 2px 8px rgba(180,160,120,.4);
     transition:opacity .5s,transform .5s;
@@ -142,8 +138,10 @@
   .envelope-seal.hidden{opacity:0;transform:translate(-50%,-50%) scale(.5);pointer-events:none}
 
   /* ---------- LETTER ---------- */
-  #scene-letter .letter-content{display:flex;flex-direction:column;
-    align-items:center;width:100%;max-width:540px;max-height:85dvh}
+  #scene-letter .letter-content{
+    display:flex;flex-direction:column;align-items:center;
+    width:100%;max-width:540px;max-height:88dvh
+  }
   .letter-paper{
     background:var(--warm-white);border-radius:14px;padding:32px 24px;
     box-shadow:0 16px 48px rgba(160,150,130,.2),0 2px 8px rgba(160,150,130,.1);
@@ -154,31 +152,32 @@
   .letter-paper::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;
     background:linear-gradient(90deg,var(--sage),var(--gold-light),var(--sage));
     border-radius:14px 14px 0 0}
-  .letter-text{font-family:var(--font-serif);font-size:clamp(.95rem,3.8vw,1.08rem);
+  .letter-text{font-family:var(--serif);font-size:clamp(.95rem,3.8vw,1.08rem);
     line-height:1.9;color:var(--text);letter-spacing:.01em}
   .letter-text p{margin-bottom:18px}
   .letter-text .salutation{font-size:1.1em;font-style:italic}
   .letter-text .salutation .name{font-style:normal;color:var(--sage-deep);
     font-weight:500;letter-spacing:.04em}
   .letter-text p:last-child{margin-bottom:0}
-  .letter-signature{font-family:var(--font-serif);font-style:italic;
+  .letter-signature{font-family:var(--serif);font-style:italic;
     font-size:clamp(1.05rem,4.2vw,1.3rem);color:var(--text-soft);
     text-align:right;margin-top:24px;line-height:1.6}
   .letter-signature .sign-name{display:block;margin-top:8px;font-style:normal;
     color:var(--sage-deep);font-size:.95em;letter-spacing:.06em;font-weight:500}
 
   /* ---------- ENDING ---------- */
-  #scene-ending .ending-content{display:flex;flex-direction:column;
-    align-items:center;gap:26px;text-align:center;position:relative;z-index:2;
-    max-width:520px}
-  .ending-message{font-family:var(--font-serif);font-size:clamp(1.3rem,5.5vw,1.9rem);
+  #scene-ending .ending-content{
+    display:flex;flex-direction:column;align-items:center;
+    gap:26px;text-align:center;position:relative;z-index:2;max-width:520px
+  }
+  .ending-message{font-family:var(--serif);font-size:clamp(1.3rem,5.5vw,1.9rem);
     color:var(--text);line-height:1.5;opacity:0;transform:translateY(12px);
     transition:opacity 1s ease .4s,transform 1s ease .4s}
   .ending-message.visible{opacity:1;transform:translateY(0)}
   .ending-sub{font-size:clamp(.95rem,3.6vw,1.1rem);color:var(--text-soft);
     letter-spacing:.03em;opacity:0;transition:opacity 1s ease 1s;line-height:1.7}
   .ending-sub.visible{opacity:1}
-  .ending-names{font-family:var(--font-serif);font-style:italic;
+  .ending-names{font-family:var(--serif);font-style:italic;
     font-size:clamp(.9rem,3.4vw,1.05rem);color:var(--sage-deep);
     letter-spacing:.08em;opacity:0;transition:opacity 1s ease 1.4s;margin-top:6px}
   .ending-names.visible{opacity:1}
@@ -186,8 +185,8 @@
 
   /* ---------- MUSIC CONTROL ---------- */
   .music-control{
-    position:fixed;bottom:calc(20px + env(safe-area-inset-bottom));
-    right:calc(20px + env(safe-area-inset-right));
+    position:fixed;bottom:calc(18px + env(safe-area-inset-bottom));
+    right:calc(18px + env(safe-area-inset-right));
     z-index:1000;display:flex;align-items:center;gap:10px;
     background:rgba(253,251,247,.92);backdrop-filter:blur(14px);
     -webkit-backdrop-filter:blur(14px);border-radius:50px;
@@ -195,13 +194,13 @@
     box-shadow:0 6px 24px rgba(160,150,130,.22),0 1px 4px rgba(160,150,130,.12);
     border:1px solid rgba(200,180,140,.22);
     opacity:0;transform:translateY(12px);
-    transition:opacity .6s ease,transform .6s ease;
-    pointer-events:none;max-width:calc(100vw - 40px);
+    transition:opacity .5s ease,transform .5s ease;
+    pointer-events:none;max-width:calc(100vw - 36px);
   }
   .music-control.visible{opacity:1;transform:translateY(0);pointer-events:auto}
   .music-btn{
     width:40px;height:40px;border-radius:50%;border:none;background:var(--sage);
-    color:var(--warm-white);font-size:.95rem;
+    color:var(--warm-white);font-size:1rem;
     display:flex;align-items:center;justify-content:center;cursor:pointer;
     transition:background .25s,transform .2s;
     touch-action:manipulation;flex-shrink:0;
@@ -216,18 +215,18 @@
 
   /* ---------- SONG PROMPT ---------- */
   .song-prompt{
-    position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom));
+    position:fixed;left:50%;bottom:calc(80px + env(safe-area-inset-bottom));
     transform:translate(-50%,20px);z-index:1001;
     display:flex;align-items:center;gap:10px;
     background:linear-gradient(145deg,var(--warm-white),var(--cream));
     border:1px solid var(--gold-light);border-radius:50px;
     padding:12px 22px 12px 16px;
     box-shadow:0 12px 36px rgba(180,160,130,.28),0 2px 8px rgba(180,160,130,.15);
-    font-family:var(--font-sans);font-size:.95rem;color:var(--text);font-weight:500;
+    font-family:var(--sans);font-size:.95rem;color:var(--text);font-weight:500;
     letter-spacing:.02em;cursor:pointer;opacity:0;pointer-events:none;
     transition:opacity .5s ease,transform .5s cubic-bezier(.4,0,.2,1);
     -webkit-tap-highlight-color:transparent;touch-action:manipulation;
-    white-space:nowrap;max-width:calc(100vw - 40px);
+    white-space:nowrap;max-width:calc(100vw - 36px);
     -webkit-appearance:none;appearance:none;
   }
   .song-prompt.visible{opacity:1;transform:translate(-50%,0);pointer-events:auto}
@@ -236,14 +235,14 @@
 
   /* ---------- YOUTUBE HOST ---------- */
   #youtube-host{
-    position:fixed;bottom:0;left:50%;transform:translateX(-50%);
-    width:1px;height:1px;overflow:hidden;opacity:.001;
+    position:fixed;bottom:calc(74px + env(safe-area-inset-bottom));
+    left:50%;transform:translateX(-50%);
+    width:1px;height:1px;overflow:hidden;opacity:0;
     pointer-events:none;z-index:-1;border-radius:12px;
-    transition:opacity .4s,width .4s,height .4s;
+    transition:opacity .4s ease,width .4s ease,height .4s ease;
   }
   #youtube-host.visible{
     opacity:1;pointer-events:auto;width:200px;height:112px;
-    bottom:calc(84px + env(safe-area-inset-bottom));
     overflow:hidden;
     box-shadow:0 12px 36px rgba(160,150,130,.3);
     border:1px solid var(--gold-light);z-index:999;background:#000;
@@ -265,13 +264,9 @@
     100%{transform:translateY(-130vh) translateX(-16px) rotate(-4deg);opacity:0}
   }
 
-  /* ---------- RESPONSIVE ---------- */
-  @media (min-width:600px){
-    .letter-paper{padding:40px 36px}
-  }
+  @media (min-width:600px){.letter-paper{padding:40px 36px}}
   @media (min-width:900px){.scene{padding:40px}}
 
-  /* ---------- REDUCED MOTION ---------- */
   @media (prefers-reduced-motion:reduce){
     *,*::before,*::after{
       animation-duration:.01ms !important;animation-iteration-count:1 !important;
@@ -281,7 +276,6 @@
     .intro-heart{animation:none !important}
   }
 
-  /* ---------- SCROLLBAR ---------- */
   .letter-paper::-webkit-scrollbar{width:3px}
   .letter-paper::-webkit-scrollbar-track{background:transparent}
   .letter-paper::-webkit-scrollbar-thumb{background:var(--beige);border-radius:3px}
@@ -289,7 +283,7 @@
 </head>
 <body>
 
-<!-- ==================== SCENE: INTRO ==================== -->
+<!-- ============ INTRO ============ -->
 <section id="scene-intro" class="scene active" aria-label="Introduction">
   <div class="intro-content">
     <div class="intro-heart" aria-hidden="true">🤍</div>
@@ -297,13 +291,11 @@
     <div class="intro-line" aria-hidden="true"></div>
     <p class="subtitle">A little piece of my heart,<br>wrapped in pixels and light.</p>
     <p class="intro-signature">— from <span class="name">Maria Lyahoudia</span></p>
-    <button class="btn btn-primary" id="btn-open" type="button" aria-label="Open the love letter">
-      Open it ❤️
-    </button>
+    <button class="btn btn-primary" id="btn-open" type="button">Open it ❤️</button>
   </div>
 </section>
 
-<!-- ==================== SCENE: MESSAGE ==================== -->
+<!-- ============ MESSAGE ============ -->
 <section id="scene-message" class="scene" aria-label="A message for you">
   <div class="message-content">
     <div class="message-main">I miss you…</div>
@@ -311,11 +303,11 @@
   </div>
 </section>
 
-<!-- ==================== SCENE: ENVELOPE ==================== -->
+<!-- ============ ENVELOPE ============ -->
 <section id="scene-envelope" class="scene" aria-label="A letter for you">
   <div class="envelope-content">
     <p class="title-soft">Said, I wrote you something…</p>
-    <div class="envelope-wrapper" id="envelope-wrapper" role="button" tabindex="0" aria-label="Open the envelope">
+    <div class="envelope-wrapper" id="envelope-wrapper" role="button" tabindex="0" aria-label="Open envelope">
       <div class="envelope">
         <div class="envelope-flap" id="envelope-flap"></div>
         <div class="envelope-body">
@@ -326,13 +318,11 @@
         <div class="envelope-seal" id="envelope-seal">M&amp;S</div>
       </div>
     </div>
-    <button class="btn btn-primary" id="btn-open-letter" type="button" aria-label="Open my letter">
-      Open my letter 💌
-    </button>
+    <button class="btn btn-primary" id="btn-open-letter" type="button">Open my letter 💌</button>
   </div>
 </section>
 
-<!-- ==================== SCENE: LETTER ==================== -->
+<!-- ============ LETTER ============ -->
 <section id="scene-letter" class="scene" aria-label="My love letter">
   <div class="letter-content">
     <div class="letter-paper">
@@ -350,13 +340,11 @@
         <span class="sign-name">— Maria Lyahoudia</span>
       </div>
     </div>
-    <button class="btn btn-ghost" id="btn-continue" type="button" style="margin-top:18px" aria-label="Continue to final scene">
-      Continue →
-    </button>
+    <button class="btn btn-ghost" id="btn-continue" type="button" style="margin-top:16px">Continue →</button>
   </div>
 </section>
 
-<!-- ==================== SCENE: ENDING ==================== -->
+<!-- ============ ENDING ============ -->
 <section id="scene-ending" class="scene" aria-label="Until I see you again">
   <div class="ending-content">
     <div class="ending-message" id="ending-message">Until I see you again…</div>
@@ -367,127 +355,113 @@
   </div>
 </section>
 
-<!-- ==================== MUSIC CONTROL ==================== -->
+<!-- ============ MUSIC CONTROL ============ -->
 <div class="music-control" id="music-control" aria-label="Music controls">
   <button class="music-btn paused" id="music-toggle" type="button" aria-label="Play music">♪</button>
   <span class="music-label" id="music-label">Our Song</span>
 </div>
 
-<!-- ==================== SONG PROMPT ==================== -->
+<!-- ============ SONG PROMPT ============ -->
 <button class="song-prompt" id="song-prompt" type="button" aria-label="Play our song">
   <span class="song-prompt-icon">🎵</span>
   <span>Play our song</span>
 </button>
 
-<!-- ==================== YOUTUBE HOST ==================== -->
-<div id="youtube-host" aria-hidden="true">
+<!-- ============ YOUTUBE HOST ============ -->
+<div id="youtube-host">
   <div id="youtube-player"></div>
 </div>
 
 <script>
-/* ============================================================
-   FOR SAID CHIKOURI — from Maria Lyahoudia
-   ============================================================ */
 (function () {
   'use strict';
 
-  // ---------- CONFIG ----------
   var YT_VIDEO_ID = '2aIjPlTL1gA';
   var BALLOON_COUNT = 6;
 
-  // ---------- DOM ----------
+  function $(id){ return document.getElementById(id); }
+
+  // DOM
   var scenes = {
-    INTRO:    document.getElementById('scene-intro'),
-    MESSAGE:  document.getElementById('scene-message'),
-    ENVELOPE: document.getElementById('scene-envelope'),
-    LETTER:   document.getElementById('scene-letter'),
-    ENDING:   document.getElementById('scene-ending')
+    INTRO:    $('scene-intro'),
+    MESSAGE:  $('scene-message'),
+    ENVELOPE: $('scene-envelope'),
+    LETTER:   $('scene-letter'),
+    ENDING:   $('scene-ending')
   };
+  var btnOpen        = $('btn-open');
+  var btnOpenLetter  = $('btn-open-letter');
+  var btnContinue    = $('btn-continue');
+  var messageReveal  = $('message-reveal');
+  var envelopeFlap   = $('envelope-flap');
+  var envelopeLetter = $('envelope-letter');
+  var envelopeSeal   = $('envelope-seal');
+  var endingMessage  = $('ending-message');
+  var endingSub      = $('ending-sub');
+  var endingNames    = $('ending-names');
+  var musicControl   = $('music-control');
+  var musicToggle    = $('music-toggle');
+  var musicLabel     = $('music-label');
+  var songPrompt     = $('song-prompt');
+  var ytHost         = $('youtube-host');
 
-  var btnOpen        = document.getElementById('btn-open');
-  var btnOpenLetter  = document.getElementById('btn-open-letter');
-  var btnContinue    = document.getElementById('btn-continue');
-  var messageReveal  = document.getElementById('message-reveal');
-  var envelopeWrap   = document.getElementById('envelope-wrapper');
-  var envelopeFlap   = document.getElementById('envelope-flap');
-  var envelopeLetter = document.getElementById('envelope-letter');
-  var envelopeSeal   = document.getElementById('envelope-seal');
-  var endingMessage  = document.getElementById('ending-message');
-  var endingSub      = document.getElementById('ending-sub');
-  var endingNames    = document.getElementById('ending-names');
-  var musicControl   = document.getElementById('music-control');
-  var musicToggle    = document.getElementById('music-toggle');
-  var musicLabel     = document.getElementById('music-label');
-  var songPrompt     = document.getElementById('song-prompt');
-  var ytHost         = document.getElementById('youtube-host');
-
-  // ---------- STATE ----------
-  var currentScene      = 'INTRO';
-  var isTransitioning   = false;
+  // State
+  var currentScene = 'INTRO';
+  var isTransitioning = false;
   var envelopeAnimating = false;
-  var envelopeOpened    = false;
-  var typingTimer       = null;
-  var balloonsSpawned   = false;
-  var pendingTimeouts   = [];
+  var envelopeOpened = false;
+  var typingTimer = null;
+  var balloonsSpawned = false;
+  var timeouts = [];
 
-  // YouTube
-  var ytPlayer        = null;
-  var ytReady         = false;
-  var ytApiRequested  = false;
-  var ytPlayAttempted = false;
-  var ytIsPlaying     = false;
+  var ytPlayer = null;
+  var ytReady = false;
+  var ytLoading = false;
+  var ytPlaying = false;
 
   // ---------- HELPERS ----------
   function later(fn, ms) {
     var id = setTimeout(function () {
       try { fn(); } catch (e) { console.error('[task]', e); }
     }, ms);
-    pendingTimeouts.push(id);
+    timeouts.push(id);
     return id;
   }
-  function clearPending() {
-    while (pendingTimeouts.length) clearTimeout(pendingTimeouts.pop());
-  }
+
   function prefersReducedMotion() {
     return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   }
 
-  /**
-   * Attach a tap handler that works on iOS Safari.
-   * Listens to BOTH 'click' and 'touchend' with a shared debounce.
-   */
+  // Bulletproof tap handler
   function onTap(el, handler) {
-    if (!el) return;
-    var lastFire = 0;
+    if (!el) { console.warn('onTap: no element'); return; }
+    var last = 0;
     function fire(e) {
       var now = Date.now();
-      if (now - lastFire < 450) return; // debounce duplicates
-      lastFire = now;
-      try { handler(e); } catch (err) { console.error('[tap]', err); }
+      if (now - last < 500) return;
+      last = now;
+      try { handler(e); }
+      catch (err) { console.error('[tap]', err); }
     }
     el.addEventListener('click', fire, false);
     el.addEventListener('touchend', function (e) {
-      // prevent the browser's synthetic click that would follow
       e.preventDefault();
       fire(e);
     }, { passive: false });
   }
 
-  // ---------- SCENE MANAGEMENT ----------
-  function goToScene(next) {
-    if (!scenes[next]) { console.warn('Unknown scene', next); return; }
-    if (next === currentScene) return;
+  // ---------- SCENE SWITCHER ----------
+  function goToScene(name) {
+    if (!scenes[name]) { console.warn('unknown scene:', name); return; }
+    if (name === currentScene) return;
     if (isTransitioning) return;
     isTransitioning = true;
-
     try {
-      var prev = scenes[currentScene];
-      var curr = scenes[next];
-      if (prev) prev.classList.remove('active');
-      curr.classList.add('active');
-      currentScene = next;
-      later(function () { isTransitioning = false; }, 850);
-      onSceneEnter(next);
+      if (scenes[currentScene]) scenes[currentScene].classList.remove('active');
+      scenes[name].classList.add('active');
+      currentScene = name;
+      later(function () { isTransitioning = false; }, 800);
+      onSceneEnter(name);
     } catch (e) {
       console.error('[goToScene]', e);
       isTransitioning = false;
@@ -497,56 +471,52 @@
   function onSceneEnter(name) {
     if (name === 'MESSAGE')  startMessageReveal();
     if (name === 'ENDING')   runEndingSequence();
-    if (name === 'ENVELOPE') {
-      envelopeFlap.classList.remove('open');
-      envelopeLetter.classList.remove('revealed');
-      envelopeSeal.classList.remove('hidden');
-      envelopeOpened = false;
-      envelopeAnimating = false;
-    }
+    if (name === 'ENVELOPE') resetEnvelope();
   }
 
-  // ---------- MESSAGE TYPING ----------
+  // ---------- MESSAGE ----------
   function startMessageReveal() {
     if (!messageReveal) return;
     if (typingTimer) { clearInterval(typingTimer); typingTimer = null; }
     messageReveal.textContent = '';
-    var fullText = 'More than I know how to explain.';
+    var full = 'More than I know how to explain.';
     var i = 0;
     later(function () {
       typingTimer = setInterval(function () {
-        if (i >= fullText.length) {
-          clearInterval(typingTimer); typingTimer = null;
-          return;
+        if (i >= full.length) {
+          clearInterval(typingTimer); typingTimer = null; return;
         }
-        messageReveal.textContent = fullText.slice(0, ++i);
+        messageReveal.textContent = full.slice(0, ++i);
       }, 55);
     }, 500);
-
-    // Auto-advance to envelope after message + pause
-    later(function () {
-      goToScene('ENVELOPE');
-    }, 4400);
+    later(function () { goToScene('ENVELOPE'); }, 4600);
   }
 
   // ---------- ENVELOPE ----------
+  function resetEnvelope() {
+    if (envelopeFlap)   envelopeFlap.classList.remove('open');
+    if (envelopeLetter) envelopeLetter.classList.remove('revealed');
+    if (envelopeSeal)   envelopeSeal.classList.remove('hidden');
+    envelopeOpened = false;
+    envelopeAnimating = false;
+  }
+
   function openEnvelope() {
     if (envelopeAnimating || envelopeOpened) return;
     envelopeAnimating = true;
     envelopeOpened = true;
-
     try {
-      envelopeSeal.classList.add('hidden');
-      envelopeFlap.classList.add('open');
+      if (envelopeSeal)   envelopeSeal.classList.add('hidden');
+      if (envelopeFlap)   envelopeFlap.classList.add('open');
       later(function () {
-        envelopeLetter.classList.add('revealed');
+        if (envelopeLetter) envelopeLetter.classList.add('revealed');
       }, 500);
       later(function () {
         envelopeAnimating = false;
         goToScene('LETTER');
       }, 1700);
     } catch (e) {
-      console.error('[envelope]', e);
+      console.error('[openEnvelope]', e);
       envelopeAnimating = false;
       goToScene('LETTER');
     }
@@ -555,9 +525,9 @@
   // ---------- ENDING ----------
   function runEndingSequence() {
     try {
-      endingMessage.classList.add('visible');
-      later(function () { endingSub.classList.add('visible'); }, 800);
-      later(function () { endingNames.classList.add('visible'); }, 1200);
+      if (endingMessage) endingMessage.classList.add('visible');
+      later(function () { if (endingSub)   endingSub.classList.add('visible'); }, 800);
+      later(function () { if (endingNames) endingNames.classList.add('visible'); }, 1200);
       if (!balloonsSpawned && !prefersReducedMotion()) {
         balloonsSpawned = true;
         spawnBalloons();
@@ -602,23 +572,25 @@
   //  YOUTUBE MUSIC
   // ============================================================
   function loadYouTubeAPI() {
-    if (ytApiRequested) return;
-    ytApiRequested = true;
+    if (ytLoading || ytReady) return;
+    ytLoading = true;
     if (window.YT && window.YT.Player) { onYouTubeReady(); return; }
 
-    // Global callback must exist BEFORE the script loads
     window.onYouTubeIframeAPIReady = function () {
-      try { onYouTubeReady(); } catch (e) { console.error(e); showSongPrompt(); }
+      try { onYouTubeReady(); }
+      catch (e) { console.warn('[YT ready]', e); showSongPrompt(); }
     };
 
-    var tag = document.createElement('script');
-    tag.src = 'https://www.youtube.com/iframe_api';
-    tag.async = true;
-    tag.onerror = function () {
-      console.warn('YouTube API failed to load');
+    var s = document.createElement('script');
+    s.src = 'https://www.youtube.com/iframe_api';
+    s.async = true;
+    s.onerror = function () {
+      console.warn('YouTube API failed');
       showSongPrompt();
     };
-    document.head.appendChild(tag);
+    document.head.appendChild(s);
+
+    later(function () { if (!ytReady) showSongPrompt(); }, 4500);
   }
 
   function onYouTubeReady() {
@@ -628,7 +600,7 @@
         videoId: YT_VIDEO_ID,
         playerVars: {
           autoplay: 0,
-          controls: 0,
+          controls: 1,
           disablekb: 1,
           fs: 0,
           modestbranding: 1,
@@ -637,11 +609,67 @@
         },
         events: {
           onReady: function () {
-            // Player ready — nothing to do until user asks
+            if (wantPlay) tryStartPlayback();
           },
           onStateChange: function (ev) {
             try {
               var s = ev.data;
-              // 1 = playing
               if (s === 1) {
-                ytIsPlaying = true;
+                ytPlaying = true;
+                setMusicUI(true);
+                hideSongPrompt();
+              } else if (s === 2 || s === 0) {
+                ytPlaying = false;
+                setMusicUI(false);
+              }
+            } catch (e) { console.warn('[YT state]', e); }
+          },
+          onError: function (ev) {
+            console.warn('YouTube player error', ev && ev.data);
+            showSongPrompt();
+          }
+        }
+      });
+    } catch (e) {
+      console.warn('[YT create]', e);
+      showSongPrompt();
+    }
+  }
+
+  var wantPlay = false;
+
+  function tryStartPlayback() {
+    if (!ytPlayer || typeof ytPlayer.playVideo !== 'function') return;
+    try {
+      ytPlayer.playVideo();
+      later(function () {
+        if (!ytPlaying) showSongPrompt();
+      }, 1500);
+    } catch (e) {
+      console.warn('[play]', e);
+      showSongPrompt();
+    }
+  }
+
+  function requestPlayback() {
+    wantPlay = true;
+    musicControl.classList.add('visible');
+    if (ytReady && ytPlayer) {
+      tryStartPlayback();
+    } else {
+      loadYouTubeAPI();
+    }
+  }
+
+  function togglePlayback() {
+    if (!ytPlayer || typeof ytPlayer.playVideo !== 'function') {
+      requestPlayback();
+      return;
+    }
+    try {
+      if (ytPlaying) {
+        ytPlayer.pauseVideo();
+      } else {
+        ytPlayer.playVideo();
+      }
+    } catch (e) { console.warn('[toggle]', e); }

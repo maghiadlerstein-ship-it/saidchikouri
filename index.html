@@ -78,15 +78,51 @@
     min-width:auto;padding:12px 28px;min-height:48px;
   }
 
-  /* ---------- MESSAGE ---------- */
+  /* ---------- MESSAGE (now includes link) ---------- */
   #scene-message .message-content{
     display:flex;flex-direction:column;align-items:center;
-    gap:24px;max-width:520px;text-align:center
+    gap:26px;max-width:520px;text-align:center;
+    animation:messageFadeIn .9s cubic-bezier(.4,0,.2,1) both
+  }
+  @keyframes messageFadeIn{
+    from{opacity:0;transform:translateY(18px)}
+    to{opacity:1;transform:translateY(0)}
   }
   .message-main{font-family:var(--serif);font-size:clamp(2rem,8vw,2.9rem);
     color:var(--text);line-height:1.3}
   .message-reveal{font-size:clamp(1rem,4vw,1.25rem);color:var(--text-soft);
     line-height:1.7;min-height:2.6em;letter-spacing:.02em}
+
+  /* Song link — big, tappable, elegant */
+  .song-link{
+    display:inline-flex;align-items:center;gap:10px;
+    margin-top:4px;
+    font-family:var(--sans);font-size:clamp(.95rem,3.8vw,1.05rem);
+    font-weight:500;letter-spacing:.03em;
+    color:var(--sage-deep);
+    text-decoration:none;
+    padding:14px 26px;
+    background:linear-gradient(145deg,var(--warm-white),var(--cream));
+    border:1px solid var(--gold-light);
+    border-radius:50px;
+    box-shadow:0 8px 26px rgba(180,160,130,.28),
+               0 2px 8px rgba(180,160,130,.15);
+    transition:transform .2s ease,box-shadow .25s ease;
+    -webkit-tap-highlight-color:transparent;
+    touch-action:manipulation;
+    min-height:52px;
+    -webkit-appearance:none;appearance:none;
+  }
+  .song-link:active{transform:scale(.96)}
+  .song-link-icon{font-size:1.2rem}
+  .song-link-arrow{font-size:.9em;opacity:.6;margin-left:2px}
+
+  /* Small caption under link */
+  .song-caption{
+    font-family:var(--serif);font-style:italic;
+    font-size:clamp(.8rem,3vw,.9rem);
+    color:var(--text-soft);opacity:.8;letter-spacing:.03em;
+  }
 
   /* ---------- ENVELOPE ---------- */
   #scene-envelope .envelope-content{
@@ -183,72 +219,6 @@
   .ending-names.visible{opacity:1}
   .ending-names .amp{color:var(--gold);font-style:normal;margin:0 6px}
 
-  /* ---------- MUSIC CONTROL ---------- */
-  .music-control{
-    position:fixed;bottom:calc(18px + env(safe-area-inset-bottom));
-    right:calc(18px + env(safe-area-inset-right));
-    z-index:1000;display:flex;align-items:center;gap:10px;
-    background:rgba(253,251,247,.92);backdrop-filter:blur(14px);
-    -webkit-backdrop-filter:blur(14px);border-radius:50px;
-    padding:8px 16px 8px 10px;
-    box-shadow:0 6px 24px rgba(160,150,130,.22),0 1px 4px rgba(160,150,130,.12);
-    border:1px solid rgba(200,180,140,.22);
-    opacity:0;transform:translateY(12px);
-    transition:opacity .5s ease,transform .5s ease;
-    pointer-events:none;max-width:calc(100vw - 36px);
-  }
-  .music-control.visible{opacity:1;transform:translateY(0);pointer-events:auto}
-  .music-btn{
-    width:40px;height:40px;border-radius:50%;border:none;background:var(--sage);
-    color:var(--warm-white);font-size:1rem;
-    display:flex;align-items:center;justify-content:center;cursor:pointer;
-    transition:background .25s,transform .2s;
-    touch-action:manipulation;flex-shrink:0;
-    -webkit-tap-highlight-color:transparent;line-height:1;
-    -webkit-appearance:none;appearance:none;
-  }
-  .music-btn:active{transform:scale(.9)}
-  .music-btn.paused{background:var(--beige);color:var(--text-soft)}
-  .music-label{font-size:.78rem;color:var(--text-soft);letter-spacing:.05em;
-    white-space:nowrap;font-weight:500;transition:color .3s}
-  .music-label.playing{color:var(--sage-deep)}
-
-  /* ---------- SONG PROMPT ---------- */
-  .song-prompt{
-    position:fixed;left:50%;bottom:calc(80px + env(safe-area-inset-bottom));
-    transform:translate(-50%,20px);z-index:1001;
-    display:flex;align-items:center;gap:10px;
-    background:linear-gradient(145deg,var(--warm-white),var(--cream));
-    border:1px solid var(--gold-light);border-radius:50px;
-    padding:12px 22px 12px 16px;
-    box-shadow:0 12px 36px rgba(180,160,130,.28),0 2px 8px rgba(180,160,130,.15);
-    font-family:var(--sans);font-size:.95rem;color:var(--text);font-weight:500;
-    letter-spacing:.02em;cursor:pointer;opacity:0;pointer-events:none;
-    transition:opacity .5s ease,transform .5s cubic-bezier(.4,0,.2,1);
-    -webkit-tap-highlight-color:transparent;touch-action:manipulation;
-    white-space:nowrap;max-width:calc(100vw - 36px);
-    -webkit-appearance:none;appearance:none;
-  }
-  .song-prompt.visible{opacity:1;transform:translate(-50%,0);pointer-events:auto}
-  .song-prompt:active{transform:translate(-50%,0) scale(.97)}
-  .song-prompt-icon{font-size:1.15rem}
-
-  /* ---------- YOUTUBE HOST ---------- */
-  #youtube-host{
-    position:fixed;bottom:calc(74px + env(safe-area-inset-bottom));
-    left:50%;transform:translateX(-50%);
-    width:1px;height:1px;overflow:hidden;opacity:0;
-    pointer-events:none;z-index:-1;border-radius:12px;
-    transition:opacity .4s ease,width .4s ease,height .4s ease;
-  }
-  #youtube-host.visible{
-    opacity:1;pointer-events:auto;width:200px;height:112px;
-    overflow:hidden;
-    box-shadow:0 12px 36px rgba(160,150,130,.3);
-    border:1px solid var(--gold-light);z-index:999;background:#000;
-  }
-  #youtube-player{width:100%;height:100%;display:block}
-
   /* ---------- BALLOONS ---------- */
   .balloon{position:fixed;bottom:-140px;pointer-events:none;z-index:4;
     animation:floatBalloon 13s ease-in-out forwards;will-change:transform,opacity}
@@ -295,11 +265,24 @@
   </div>
 </section>
 
-<!-- ============ MESSAGE ============ -->
+<!-- ============ MESSAGE (with song link) ============ -->
 <section id="scene-message" class="scene" aria-label="A message for you">
   <div class="message-content">
     <div class="message-main">I miss you…</div>
-    <div class="message-reveal" id="message-reveal" aria-live="polite"></div>
+    <div class="message-reveal" id="message-reveal"></div>
+
+    <!-- Song link appears WITH the message -->
+    <a class="song-link"
+       id="song-link"
+       href="https://youtu.be/2aIjPlTL1gA?si=1AyMr-Rx_7N1OPp8"
+       target="_blank"
+       rel="noopener noreferrer"
+       aria-label="Play our song on YouTube">
+      <span class="song-link-icon">🎵</span>
+      <span>Play our song</span>
+      <span class="song-link-arrow">↗</span>
+    </a>
+    <p class="song-caption">opens on YouTube</p>
   </div>
 </section>
 
@@ -355,28 +338,10 @@
   </div>
 </section>
 
-<!-- ============ MUSIC CONTROL ============ -->
-<div class="music-control" id="music-control" aria-label="Music controls">
-  <button class="music-btn paused" id="music-toggle" type="button" aria-label="Play music">♪</button>
-  <span class="music-label" id="music-label">Our Song</span>
-</div>
-
-<!-- ============ SONG PROMPT ============ -->
-<button class="song-prompt" id="song-prompt" type="button" aria-label="Play our song">
-  <span class="song-prompt-icon">🎵</span>
-  <span>Play our song</span>
-</button>
-
-<!-- ============ YOUTUBE HOST ============ -->
-<div id="youtube-host">
-  <div id="youtube-player"></div>
-</div>
-
 <script>
 (function () {
   'use strict';
 
-  var YT_VIDEO_ID = '2aIjPlTL1gA';
   var BALLOON_COUNT = 6;
 
   function $(id){ return document.getElementById(id); }
@@ -399,11 +364,6 @@
   var endingMessage  = $('ending-message');
   var endingSub      = $('ending-sub');
   var endingNames    = $('ending-names');
-  var musicControl   = $('music-control');
-  var musicToggle    = $('music-toggle');
-  var musicLabel     = $('music-label');
-  var songPrompt     = $('song-prompt');
-  var ytHost         = $('youtube-host');
 
   // State
   var currentScene = 'INTRO';
@@ -413,11 +373,6 @@
   var typingTimer = null;
   var balloonsSpawned = false;
   var timeouts = [];
-
-  var ytPlayer = null;
-  var ytReady = false;
-  var ytLoading = false;
-  var ytPlaying = false;
 
   // ---------- HELPERS ----------
   function later(fn, ms) {
@@ -432,19 +387,20 @@
     return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   }
 
-  // Bulletproof tap handler
+  // Bulletproof tap handler — click AND touchend, debounced
   function onTap(el, handler) {
-    if (!el) { console.warn('onTap: no element'); return; }
+    if (!el) { console.warn('onTap: element missing'); return; }
     var last = 0;
     function fire(e) {
       var now = Date.now();
-      if (now - last < 500) return;
+      if (now - last < 450) return;
       last = now;
       try { handler(e); }
       catch (err) { console.error('[tap]', err); }
     }
     el.addEventListener('click', fire, false);
     el.addEventListener('touchend', function (e) {
+      // Only prevent default if this is not a link we want to open
       e.preventDefault();
       fire(e);
     }, { passive: false });
@@ -489,7 +445,8 @@
         messageReveal.textContent = full.slice(0, ++i);
       }, 55);
     }, 500);
-    later(function () { goToScene('ENVELOPE'); }, 4600);
+    // Auto-advance to envelope after the message has settled
+    later(function () { goToScene('ENVELOPE'); }, 6000);
   }
 
   // ---------- ENVELOPE ----------
@@ -569,107 +526,74 @@
   }
 
   // ============================================================
-  //  YOUTUBE MUSIC
+  //  WIRE UP EVERYTHING — the key fix
   // ============================================================
-  function loadYouTubeAPI() {
-    if (ytLoading || ytReady) return;
-    ytLoading = true;
-    if (window.YT && window.YT.Player) { onYouTubeReady(); return; }
 
-    window.onYouTubeIframeAPIReady = function () {
-      try { onYouTubeReady(); }
-      catch (e) { console.warn('[YT ready]', e); showSongPrompt(); }
-    };
+  // 1) Open it ❤️  — ONE tap triggers EVERYTHING
+  onTap(btnOpen, function () {
+    // Immediately go to the message scene (message + song link appear together)
+    goToScene('MESSAGE');
+  });
 
-    var s = document.createElement('script');
-    s.src = 'https://www.youtube.com/iframe_api';
-    s.async = true;
-    s.onerror = function () {
-      console.warn('YouTube API failed');
-      showSongPrompt();
-    };
-    document.head.appendChild(s);
+  // 2) Open my letter 💌
+  onTap(btnOpenLetter, function () {
+    openEnvelope();
+  });
 
-    later(function () { if (!ytReady) showSongPrompt(); }, 4500);
-  }
+  // 3) Envelope itself is tappable too
+  onTap($('envelope-wrapper'), function () {
+    openEnvelope();
+  });
 
-  function onYouTubeReady() {
-    ytReady = true;
-    try {
-      ytPlayer = new window.YT.Player('youtube-player', {
-        videoId: YT_VIDEO_ID,
-        playerVars: {
-          autoplay: 0,
-          controls: 1,
-          disablekb: 1,
-          fs: 0,
-          modestbranding: 1,
-          playsinline: 1,
-          rel: 0
-        },
-        events: {
-          onReady: function () {
-            if (wantPlay) tryStartPlayback();
-          },
-          onStateChange: function (ev) {
-            try {
-              var s = ev.data;
-              if (s === 1) {
-                ytPlaying = true;
-                setMusicUI(true);
-                hideSongPrompt();
-              } else if (s === 2 || s === 0) {
-                ytPlaying = false;
-                setMusicUI(false);
-              }
-            } catch (e) { console.warn('[YT state]', e); }
-          },
-          onError: function (ev) {
-            console.warn('YouTube player error', ev && ev.data);
-            showSongPrompt();
-          }
-        }
-      });
-    } catch (e) {
-      console.warn('[YT create]', e);
-      showSongPrompt();
-    }
-  }
+  // 4) Continue → ending
+  onTap(btnContinue, function () {
+    goToScene('ENDING');
+  });
 
-  var wantPlay = false;
-
-  function tryStartPlayback() {
-    if (!ytPlayer || typeof ytPlayer.playVideo !== 'function') return;
-    try {
-      ytPlayer.playVideo();
-      later(function () {
-        if (!ytPlaying) showSongPrompt();
-      }, 1500);
-    } catch (e) {
-      console.warn('[play]', e);
-      showSongPrompt();
-    }
-  }
-
-  function requestPlayback() {
-    wantPlay = true;
-    musicControl.classList.add('visible');
-    if (ytReady && ytPlayer) {
-      tryStartPlayback();
-    } else {
-      loadYouTubeAPI();
-    }
-  }
-
-  function togglePlayback() {
-    if (!ytPlayer || typeof ytPlayer.playVideo !== 'function') {
-      requestPlayback();
-      return;
-    }
-    try {
-      if (ytPlaying) {
-        ytPlayer.pauseVideo();
-      } else {
-        ytPlayer.playVideo();
+  // 5) Keyboard support for envelope
+  var envWrap = $('envelope-wrapper');
+  if (envWrap) {
+    envWrap.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openEnvelope();
       }
-    } catch (e) { console.warn('[toggle]', e); }
+    });
+  }
+
+  // ---------- SONG LINK — make sure it opens in a new tab on every platform ----------
+  var songLink = $('song-link');
+  if (songLink) {
+    // Some mobile browsers need explicit handling.
+    // We add a fallback that uses window.open if the anchor navigation is blocked.
+    songLink.addEventListener('click', function (e) {
+      // Let the anchor's default behavior (target="_blank") work normally.
+      // This listener exists only as a safety net.
+      try {
+        // If the anchor somehow has no href, bail with a manual open
+        var href = songLink.getAttribute('href');
+        if (!href) {
+          e.preventDefault();
+          window.open('https://youtu.be/2aIjPlTL1gA?si=1AyMr-Rx_7N1OPp8', '_blank', 'noopener');
+        }
+      } catch (err) { console.warn('[song-link]', err); }
+    }, false);
+  }
+
+  // ---------- PREVENT BODY SCROLL ISSUES ----------
+  document.addEventListener('touchmove', function (e) {
+    // Allow scroll only inside the letter paper
+    if (e.target.closest && e.target.closest('.letter-paper')) return;
+    if (e.touches && e.touches.length > 1) return; // pinch zoom
+    // Block vertical scroll on the body itself
+    var scene = e.target.closest && e.target.closest('.scene');
+    if (scene && !e.target.closest('.letter-paper')) {
+      // Let taps happen, but no scroll
+      if (e.cancelable) e.preventDefault();
+    }
+  }, { passive: false });
+
+})();
+</script>
+</body>
+</html>
